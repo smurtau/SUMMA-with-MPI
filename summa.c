@@ -35,7 +35,6 @@ void matMulAdd(double **c, double **a, double **b, int block_sz){
 
         n = block_sz; 
 
-	MPI_Init (&argc, &argv);
 	MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
 	MPI_Comm_size(MPI_COMM_WORLD, &p);
 
@@ -100,7 +99,7 @@ double **alloc_2d_double(int n_rows, int n_cols) {
 	array = (double **)malloc(n_rows * sizeof (double *));
         array[0] = (double *) malloc(n_rows * n_cols * sizeof(double));
         for (i=1; i<n_rows; i++){
-                array[i] = array[0] + i * ncols;
+                array[i] = array[0] + i * n_cols;
         }
         return array;
 }
@@ -143,13 +142,13 @@ void matmul(int my_rank, int proc_grid_sz, int block_sz, double **my_A,
 	int free_coords[2];
 	int reorder = 1;
 
-	q = (int)sqrt((double)p);
+	q = (int)sqrt((double)block_sz);
 	dimsizes[0] = dimsizes[1] = q;
 	wraparound[0] = wraparound[1] = 1;
 
 	MPI_Cart_create(MPI_COMM_WORLD, 2, dimsizes, wraparound, reorder, &grid_comm);
 	MPI_Comm_rank(grid_comm, &my_rank);
-	MPI_Cart_coords(grid_comm, my_grid_rank, 2, coordinates);
+	MPI_Cart_coords(grid_comm, my_rank, 2, coordinates);
 	MPI_Cart_rank(grid_comm, coordinates, &grid_rank);
 	
 	free_coords[0] = 0;
@@ -168,7 +167,7 @@ void matmul(int my_rank, int proc_grid_sz, int block_sz, double **my_A,
 				}
 			}
 		}
-		MPI_Bcast(*buffA, block_sz*block_sz,MPI_DOUBLE,k,row_comm)
+		MPI_Bcast(*buffA, block_sz*block_sz,MPI_DOUBLE,k,row_comm);
 
 		if (coordinates[0] == k) {
 			for(int i = 0; i < block_sz; i++){
@@ -213,7 +212,7 @@ int main(int argc, char *argv[]) {
 
 /* assign values to 1) proc_grid_sz and 2) block_sz*/
 	
-	...
+	//...
 
 	if (SZ % proc_grid_sz != 0){
 		printf("Matrix size cannot be evenly split amongst resources!\n");
@@ -247,7 +246,7 @@ int main(int argc, char *argv[]) {
 	total_time = end_time - start_time;
 
 	// Insert statements for testing
-	...
+	//...
 
 
 	if (rank == 0){
