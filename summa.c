@@ -176,7 +176,7 @@ void matmul(int my_rank, int proc_grid_sz, int block_sz, double **my_A,
 				}
 			}
 		}
-		MPI_Bcast(*buffB, block_sz*block_sz,MPI_DOUBLE,k,col_comm)
+		MPI_Bcast(*buffB, block_sz*block_sz,MPI_DOUBLE,k,col_comm);
 
 		if(coordinates[0] == k && coordinates[1] == k){
 			matmulAdd(myC,myA,myB,block_sz);
