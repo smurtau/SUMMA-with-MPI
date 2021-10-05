@@ -25,7 +25,7 @@
 void matmulAdd(double **c, double **a, double **b, int block_sz){
 	int ii;
 	int myrank;
-	int p;
+	int p = 1;
 
 	MPI_Status status;
  	int tag;
