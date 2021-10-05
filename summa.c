@@ -22,7 +22,7 @@
 
 
 
-void matMulAdd(double **c, double **a, double **b, int block_sz){
+void matmulAdd(double **c, double **a, double **b, int block_sz){
 	int ii;
 	int myrank;
 	int p;
