@@ -179,16 +179,16 @@ void matmul(int my_rank, int proc_grid_sz, int block_sz, double **my_A,
 		MPI_Bcast(*buffB, block_sz*block_sz,MPI_DOUBLE,k,col_comm);
 
 		if(coordinates[0] == k && coordinates[1] == k){
-			matmulAdd(myC,myA,myB,block_sz);
+			matmulAdd(my_C,my_A,my_B,block_sz);
 		}
 		else if (coordinates[0] == k) {
-			matmulAdd(myC,buffA,myB,block_sz);
+			matmulAdd(my_C,buffA,my_B,block_sz);
 		}
 		else if (coordinates[1] == k){
-			matmulAdd(myC,myA,buffB,block_sz);
+			matmulAdd(my_C,my_A,buffB,block_sz);
 		} 
 		else
-			matmulAdd(myC,buffA,buffB,block_sz);
+			matmulAdd(my_C,buffA,buffB,block_sz);
 	}
 }
 
