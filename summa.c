@@ -25,7 +25,7 @@
 void matmulAdd(double **c, double **a, double **b, int block_sz){
 	int ii;
 	int myrank;
-	int p = 1;
+	int p;
 
 	MPI_Status status;
  	int tag;
@@ -133,7 +133,7 @@ void matmul(int my_rank, int proc_grid_sz, int block_sz, double **my_A,
 	int free_coords[2];
 	int reorder = 1;
 
-	q = (int)sqrt((double)block_sz);
+	q = block_sz;
 	dimsizes[0] = dimsizes[1] = q;
 	wraparound[0] = wraparound[1] = 1;
 
@@ -202,8 +202,9 @@ int main(int argc, char *argv[]) {
 
 
 /* assign values to 1) proc_grid_sz and 2) block_sz*/
+	proc_grid_size = (int)sqrt((double)num_proc);
+	block_sz = SZ/proc_grid_size;
 	
-	//...
 
 	if (SZ % proc_grid_sz != 0){
 		printf("Matrix size cannot be evenly split amongst resources!\n");
