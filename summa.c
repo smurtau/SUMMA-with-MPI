@@ -37,6 +37,7 @@ void matmulAdd(double **c, double **a, double **b, int block_sz){
 
 	MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
 	MPI_Comm_size(MPI_COMM_WORLD, &p);
+	prinf("%s",p);
 
 	/* Data distribution */ 
 
