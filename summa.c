@@ -18,7 +18,7 @@
 #include "mpi.h"
 
 #define min(a, b) ((a < b) ? a : b)
-#define SZ 4000		//Each matrix of entire A, B, and C is SZ by SZ. Set a small value for testing, and set a large value for collecting experimental data.
+#define SZ 40		//Each matrix of entire A, B, and C is SZ by SZ. Set a small value for testing, and set a large value for collecting experimental data.
 
 
 
@@ -37,7 +37,6 @@ void matmulAdd(double **c, double **a, double **b, int block_sz){
 
 	MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
 	MPI_Comm_size(MPI_COMM_WORLD, &p);
-	prinf("%s",p);
 
 	/* Data distribution */ 
 
@@ -55,15 +54,6 @@ void matmulAdd(double **c, double **a, double **b, int block_sz){
 			MPI_Send( &a[0][0], n*n/p, MPI_INT, i, tag, MPI_COMM_WORLD );
 			MPI_Send( &b[0][0], n*n, MPI_INT, i, tag, MPI_COMM_WORLD );
 		}
-	}
-
-//	printf("populate root's a\n");
-	if (myrank == 0){
-		for (ii = 0; ii < n/p; ii++)
-			for(j = 0; j < n; j++)
-			{
-				a[ii][j] = ii + j + 1;
-			}
 	}
 
 	/* Computation */ 
