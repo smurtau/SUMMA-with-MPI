@@ -125,7 +125,7 @@ void matmul(int my_rank, int proc_grid_sz, int block_sz, double **my_A,
 	buffA = alloc_2d_double(block_sz,block_sz);
 	buffB = alloc_2d_double(block_sz,block_sz);
 
-	MPI_Comm grid_comm;
+	MPI_Comm *grid_comm;
 	MPI_Comm row_comm;
 	MPI_Comm col_comm;
 	int grid_rank, q;
