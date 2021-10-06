@@ -202,7 +202,7 @@ int main(int argc, char *argv[]) {
 
 
 /* assign values to 1) proc_grid_sz and 2) block_sz*/
-	proc_grid_size = (int)sqrt((double)num_proc);
+	proc_grid_sz = (int)sqrt((double)num_proc);
 	block_sz = SZ/proc_grid_size;
 	
 
