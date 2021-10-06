@@ -138,7 +138,7 @@ void matmul(int my_rank, int proc_grid_sz, int block_sz, double **my_A,
 	dimsizes[0] = dimsizes[1] = q;
 	wraparound[0] = wraparound[1] = 1;
 
-	MPI_Cart_create(MPI_COMM_SELF, proc_grid_sz*proc_grid_sz, dimsizes, wraparound, reorder, &grid_comm);
+	MPI_Cart_create(MPI_COMM_SELF, 2, dimsizes, wraparound, reorder, &grid_comm);
 	MPI_Cart_coords(grid_comm, my_rank, 2, coordinates);
 	MPI_Cart_rank(grid_comm, coordinates, &my_rank);
 	
@@ -238,7 +238,31 @@ int main(int argc, char *argv[]) {
 	total_time = end_time - start_time;
 
 	// Insert statements for testing
-	//...
+	double test_a[6][6] = [[100000
+							110000
+							011000
+							001100
+							000110
+							000011]];
+	double test_b[6][6] = [[110000
+							011000
+							001100
+							000110
+							000011
+							000001]];
+	double test_c[6][6] = [[000000
+							000000
+							000000
+							000000
+							000000
+							000000]];
+	matmul(rank,proc_grid_sz,block_sz,test_a,test_b,test_c);
+	for (int i = 0; i<6; i++){
+		for(int j = 0; j<6; j++){
+			printf("%s ",test_c[i][j]);
+			if (j == 5) printf("\n");
+		}
+	}
 
 
 	if (rank == 0){
