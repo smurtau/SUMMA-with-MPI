@@ -238,7 +238,7 @@ int main(int argc, char *argv[]) {
 
 	// Insert statements for testing
 	//...
-
+	MPI_Barrier();
 	if (rank == 0){
 		// Print in pseudo csv format for easier results compilation
 		printf("squareMatrixSideLength,%d,numMPICopies,%d,walltime,%lf\n",
