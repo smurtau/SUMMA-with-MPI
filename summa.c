@@ -133,7 +133,7 @@ void matmul(int my_rank, int proc_grid_sz, int block_sz, double **my_A,
 	int free_coords[2];
 	int reorder = 1;
 
-	q = block_sz;
+	q = proc_grid_sz;
 	dimsizes[0] = dimsizes[1] = q;
 	wraparound[0] = wraparound[1] = 1;
 
