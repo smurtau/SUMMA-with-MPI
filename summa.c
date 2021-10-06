@@ -18,7 +18,7 @@
 #include "mpi.h"
 
 #define min(a, b) ((a < b) ? a : b)
-#define SZ 2000		//Each matrix of entire A, B, and C is SZ by SZ. Set a small value for testing, and set a large value for collecting experimental data.
+#define SZ 40		//Each matrix of entire A, B, and C is SZ by SZ. Set a small value for testing, and set a large value for collecting experimental data.
 
 
 
@@ -75,7 +75,6 @@ void matmulAdd(double **c, double **a, double **b, int block_sz){
 			MPI_Recv( &c[0][0], n*n/p, MPI_INT, i, tag, MPI_COMM_WORLD, &status);
 
         	}
-	MPI_Finalize();
 }
 
 
@@ -239,7 +238,6 @@ int main(int argc, char *argv[]) {
 
 	// Insert statements for testing
 	//...
-
 
 	if (rank == 0){
 		// Print in pseudo csv format for easier results compilation
