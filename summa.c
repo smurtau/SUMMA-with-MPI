@@ -140,9 +140,9 @@ void matmul(int my_rank, int proc_grid_sz, int block_sz, double **my_A,
 	wraparound[0] = wraparound[1] = 1;
 
 	MPI_Cart_create(grid_comm, 2, dimsizes, wraparound, reorder, &grid_comm);
-	MPI_Comm_rank(grid_comm, &grid_rank);
-	MPI_Cart_coords(grid_comm, grid_rank, 2, coordinates);
-	MPI_Cart_rank(grid_comm, coordinates, &grid_rank);
+	MPI_Comm_rank(MPI_COMM_WORLD, &grid_rank);
+	MPI_Cart_coords(MPI_COMM_WORLD, grid_rank, 2, coordinates);
+	MPI_Cart_rank(MPI_COMM_WORLD, coordinates, &grid_rank);
 	
 	free_coords[0] = 0;
 	free_coords[1] = 1;
