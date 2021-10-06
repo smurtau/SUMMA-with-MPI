@@ -18,7 +18,7 @@
 #include "mpi.h"
 
 #define min(a, b) ((a < b) ? a : b)
-#define SZ 40		//Each matrix of entire A, B, and C is SZ by SZ. Set a small value for testing, and set a large value for collecting experimental data.
+#define SZ 2000		//Each matrix of entire A, B, and C is SZ by SZ. Set a small value for testing, and set a large value for collecting experimental data.
 
 
 
@@ -238,31 +238,7 @@ int main(int argc, char *argv[]) {
 	total_time = end_time - start_time;
 
 	// Insert statements for testing
-	double test_a[6][6] = [[100000
-							110000
-							011000
-							001100
-							000110
-							000011]];
-	double test_b[6][6] = [[110000
-							011000
-							001100
-							000110
-							000011
-							000001]];
-	double test_c[6][6] = [[000000
-							000000
-							000000
-							000000
-							000000
-							000000]];
-	matmul(rank,proc_grid_sz,block_sz,test_a,test_b,test_c);
-	for (int i = 0; i<6; i++){
-		for(int j = 0; j<6; j++){
-			printf("%s ",test_c[i][j]);
-			if (j == 5) printf("\n");
-		}
-	}
+	//...
 
 
 	if (rank == 0){
