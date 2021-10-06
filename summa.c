@@ -18,7 +18,7 @@
 #include "mpi.h"
 
 #define min(a, b) ((a < b) ? a : b)
-#define SZ 40		//Each matrix of entire A, B, and C is SZ by SZ. Set a small value for testing, and set a large value for collecting experimental data.
+#define SZ 4000		//Each matrix of entire A, B, and C is SZ by SZ. Set a small value for testing, and set a large value for collecting experimental data.
 
 
 
