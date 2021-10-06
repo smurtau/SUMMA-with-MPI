@@ -30,10 +30,10 @@ void matmulAdd(double **c, double **a, double **b, int block_sz){
 	MPI_Status status;
  	int tag;
 	int i,j,k;
-        int n;
+    int n;
 
 
-        n = block_sz; 
+    n = block_sz; 
 
 	MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
 	MPI_Comm_size(MPI_COMM_WORLD, &p);
@@ -137,7 +137,7 @@ void matmul(int my_rank, int proc_grid_sz, int block_sz, double **my_A,
 	dimsizes[0] = dimsizes[1] = q;
 	wraparound[0] = wraparound[1] = 1;
 
-	MPI_Cart_create(MPI_COMM_SELF, 2, dimsizes, wraparound, reorder, &grid_comm);
+	MPI_Cart_create(MPI_COMM_WORLD, 2, dimsizes, wraparound, reorder, &grid_comm);
 	MPI_Cart_coords(grid_comm, my_rank, 2, coordinates);
 	MPI_Cart_rank(grid_comm, coordinates, &my_rank);
 	
