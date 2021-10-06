@@ -125,7 +125,9 @@ void matmul(int my_rank, int proc_grid_sz, int block_sz, double **my_A,
 	buffA = alloc_2d_double(block_sz,block_sz);
 	buffB = alloc_2d_double(block_sz,block_sz);
 
-	MPI_Comm grid_comm,row_comm,col_comm;
+	MPI_Comm grid_comm;
+	MPI_Comm row_comm;
+	MPI_Comm col_comm;
 	int grid_rank, q;
 	int dimsizes[2];
 	int wraparound[2];
@@ -138,7 +140,7 @@ void matmul(int my_rank, int proc_grid_sz, int block_sz, double **my_A,
 	wraparound[0] = wraparound[1] = 1;
 
 	MPI_Cart_create(MPI_COMM_WORLD, 2, dimsizes, wraparound, reorder, &grid_comm);
-	MPI_Comm_rank(grid_comm, &my_rank);
+	MPI_Comm_rank(grid_comm, my_rank);
 	MPI_Cart_coords(grid_comm, my_rank, 2, coordinates);
 	MPI_Cart_rank(grid_comm, coordinates, &grid_rank);
 	
